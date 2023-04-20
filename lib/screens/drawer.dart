@@ -1,4 +1,5 @@
 import 'package:chatgpt_course/screens/contact_screen.dart';
+import 'package:chatgpt_course/screens/get_nutrients_screen.dart';
 import 'package:flutter/material.dart';
 import '../utilities/colors.dart';
 
@@ -12,6 +13,18 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  bool isLight = false;
+  Color card_color = Color.fromRGBO(220, 208, 208, 1);
+   Border? border_color;
+
+  @override
+  void initState() {
+    super.initState();
+    border_color = Border.all(
+      color: isLight ? Colors.white30 : Colors.black,
+      width: 1.0,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -54,9 +67,14 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading:const Icon(Icons.food_bank_outlined),
-            title: Text('Recipe'),
+            title: Text('Get nutrition informations'),
             onTap: () {
-              // TODO: implement settings
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => getNutrientsScreen(),
+              ),
+            );
             },
           ),
           ListTile(
@@ -85,23 +103,33 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: Icon(Icons.dark_mode),
             title: Text('Dark Mode'),
             trailing: Switch(
-              value: false,
-              onChanged: (value) {
-                // TODO: implement dark mode switch
-              },
-            ),
-            onTap: () {
-              // TODO: implement dark mode
-            },
-          ),
-                    ListTile(
-            leading:const Icon(Icons.person),
-            title: Text('Contact page'),
-            onTap: () {
-              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ContactPage()));
+              value: isLight,
+    onChanged: (value) {
+      // Toggle the mode and update the colors
+      setState(() {
+        isLight = !isLight;
+        card_color = isLight
+            ? Color.fromRGBO(220, 208, 208, 1)
+            : Colors.black54;
+        border_color = Border.all(
+          color: isLight ? Colors.white30 : Colors.white,
+          width: 1.0,
+        );
+      });
+    },
+  ),
+  onTap: () {
+    // Toggle the mode and update the colors
+    setState(() {
+      isLight = !isLight;
+      card_color = isLight
+          ? Color.fromRGBO(220, 208, 208, 1)
+          : Colors.black54;
+       border_color = Border.all(
+                  color: isLight ? Colors.white30 : Colors.white,
+                  width: 1.0,
+                );
+              });
             },
           ),
         ],

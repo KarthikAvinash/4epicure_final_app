@@ -53,6 +53,7 @@ dependencies:
   sharedpreference: ^0.0.1
   shared_preferences: ^2.1.0
   flappy_search_bar_ns: ^2.0.2
+  image_picker: ^0.8.7+3
 
 dev_dependencies:
   flutter_test:

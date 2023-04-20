@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:chatgpt_course/auth_screens/signIn.dart';
 import 'package:chatgpt_course/screens/tabs_screen.dart';
@@ -7,8 +8,9 @@ import 'package:chatgpt_course/auth_screens/signUp.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utilities/globals.dart' as globals;
-import '../utilities/error_handling.dart'; 
+import '../globals.dart' as wglobals;
+import '../utilities/error_handling.dart';
+import '../utilities/globals.dart' as globals; 
 
 
 class authServices {
@@ -52,36 +54,76 @@ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsS
     }
   }
  
- //Logging in
- void signInUser({
+//  //Logging in
+//  void signInUser({
+//     required BuildContext context,
+//     required String name,
+//     required String password,
+//   }) async {
+//     try {
+//       globals.userName = name;
+//       http.Response res = await http.post(
+//         Uri.parse('${globals.uri}/api/users/login/'),
+//         body: jsonEncode({
+//           'username': name,
+//           'password': password,
+//         }),
+//          headers: <String, String>{
+//            'Content-Type': 'application/json; charset=UTF-8',
+//          },
+//       );
+//       print(res.statusCode);
+//       httpErrorHandle(
+//         response: res,
+//         context: context,
+//         onSuccess: () async {
+//           SharedPreferences prefs = await SharedPreferences.getInstance();
+//           // Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+//           // globals.userName = res.body[name];
+//           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+// Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+//         },
+//       );
+//     } catch (e) {
+//       showSnackBar(context, e.toString());
+//     }
+//   }
+// }
+
+
+void signInUser({
     required BuildContext context,
     required String name,
     required String password,
-  }) async {
+  }) {
     try {
-      globals.userName = name;
-      http.Response res = await http.post(
-        Uri.parse('${globals.uri}/api/users/login/'),
-        body: jsonEncode({
-          'username': name,
-          'password': password,
-        }),
-         headers: <String, String>{
-           'Content-Type': 'application/json; charset=UTF-8',
-         },
-      );
-      print(res.statusCode);
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          // Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-          // globals.userName = res.body[name];
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
-        },
-      );
+      print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$name');
+      if(name == 'Devarshi' && password == '1234')
+      {
+        wglobals.setUserId(1);
+        globals.userName = "Devarshi" ; 
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+      }
+      else if(name == 'Devesh' && password == '1234')
+      {
+        wglobals.setUserId(2); 
+        globals.userName = "Devesh" ; 
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        print("inside");
+      }
+      else if(name == "Karthik" && password == 1234)
+      {
+        wglobals.setUserId(3); 
+        globals.userName = "Karthik" ; 
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+      }
+      else if(name == "Sameed" && password == 1234)
+      {
+        wglobals.setUserId(4);
+        globals.userName = "Sameed" ; 
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+      }
+      print(wglobals.user_id);
     } catch (e) {
       showSnackBar(context, e.toString());
     }

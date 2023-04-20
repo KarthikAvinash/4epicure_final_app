@@ -84,11 +84,13 @@
 //     );
 //   }
 // }
+import 'package:chatgpt_course/screens/add_recipe_screen.dart';
 import 'package:chatgpt_course/screens/nav_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/models_provider.dart';
 import 'chat_screen.dart';
+import 'drawer.dart';
 import 'grocery_screen.dart';
 import 'recipe_with_pie_chart.dart';
 
@@ -124,6 +126,10 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Recipe Sage',
       },
       {
+        'page': CreateRecipeScreen(),
+        'title': 'Add recipe',
+      },
+      {
         'page': GroceryScreen(),
         'title': 'My Groceries',
       },
@@ -147,7 +153,7 @@ class _TabsScreenState extends State<TabsScreen> {
             : AppBar(
                 title: Text(_pages[_selectedPageIndex]['title'] as String),
               ),
-        drawer: MainDrawer(),
+        drawer: MyDrawer(),
         body: _pages[_selectedPageIndex]['page'] as Widget,
         bottomNavigationBar: BottomNavigationBar(
           onTap: _selectPage,
@@ -171,6 +177,13 @@ class _TabsScreenState extends State<TabsScreen> {
                 Icons.star,
               ),
               label: 'Recipe Sage',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle_outline),
+              activeIcon: Icon(
+                Icons.add_circle,
+              ),
+              label: 'add post',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),

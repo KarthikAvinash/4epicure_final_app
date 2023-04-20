@@ -114,6 +114,7 @@ final _searchController = TextEditingController();
             ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+         resizeToAvoidBottomInset: false,
         drawer: MyDrawer(),
              appBar: AppBar(
         title: TextField(
