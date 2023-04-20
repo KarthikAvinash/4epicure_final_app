@@ -117,6 +117,7 @@ final _searchController = TextEditingController();
          resizeToAvoidBottomInset: false,
         drawer: MyDrawer(),
              appBar: AppBar(
+              backgroundColor: Colors.amber,
         title: TextField(
           controller: _searchController,
           decoration: InputDecoration(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
  int user_id = 1;
 
-bool isLight = false;
+bool isLight = true;
 Color card_color = Color.fromRGBO(220, 208, 208, 1);
 
 Border border_color = Border.all(

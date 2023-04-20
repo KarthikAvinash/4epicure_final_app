@@ -216,7 +216,8 @@ class MyApp extends StatelessWidget {
           selectedItemColor: Colors.white,
         ),
       ),
-      home:const SignupScreen(),
+      home: TabsScreen(),
+      // home: LoginScreen(),
     );
   }
 }
