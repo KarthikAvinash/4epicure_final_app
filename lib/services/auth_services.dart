@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'dart:html';
 
 import 'package:chatgpt_course/auth_screens/signIn.dart';
 import 'package:chatgpt_course/screens/tabs_screen.dart';
@@ -97,33 +96,60 @@ void signInUser({
     required String password,
   }) {
     try {
-      print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$name');
-      if(name == 'Devarshi' && password == '1234')
+      // print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$name');
+      if(name == 'Devarshi')
       {
-        wglobals.setUserId(1);
+        if(password == '1234')
+        {
+          wglobals.setUserId(1);
         globals.userName = "Devarshi" ; 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        }
+        else{
+          showSnackBar(context, "Please login with correct credentials");
+        }
       }
-      else if(name == 'Devesh' && password == '1234')
+      else if(name == 'Devesh')
       {
+        if(password == '1234')
+        {
         wglobals.setUserId(2); 
         globals.userName = "Devesh" ; 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
         print("inside");
+        }
+        else{
+          showSnackBar(context, "Please login with correct credentials");
+        }
       }
-      else if(name == "Karthik" && password == 1234)
+      else if(name == "Karthik")
       {
+        if(password == '1234')
+        {
         wglobals.setUserId(3); 
         globals.userName = "Karthik" ; 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        }
+        else{
+          showSnackBar(context, "Please login with correct credentials");
+        }
       }
-      else if(name == "Sameed" && password == 1234)
+      else if(name == "Sameed")
       {
+        if(password == '1234')
+        {
         wglobals.setUserId(4);
         globals.userName = "Sameed" ; 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        }
+        else{
+          showSnackBar(context, "Please login with correct credentials");
+        }
       }
-      print(wglobals.user_id);
+      final a = wglobals.user_id;
+      print('###################$a');
+      final b = globals.userName;
+      print('%%%%%%%%%%%%%%%%%%%%$b');
     } catch (e) {
       showSnackBar(context, e.toString());
     }
