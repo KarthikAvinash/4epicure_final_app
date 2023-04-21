@@ -57,4 +57,5 @@ class Playlist {
     videos.add(v);
     if (sort) _sortVideos();
   }
+  
 }

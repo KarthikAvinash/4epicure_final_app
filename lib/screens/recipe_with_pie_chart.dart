@@ -9,95 +9,135 @@ import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 import '../globals.dart';
 import '../widgets/pie_graph.dart';
+import 'package:sensors/sensors.dart';
+import 'dart:async';
 
 class MyFlipCard extends StatefulWidget {
   const MyFlipCard({context, Key? key}) : super(key: key);
-
   @override
   State<MyFlipCard> createState() => _MyFlipCardState();
 }
 
 class _MyFlipCardState extends State<MyFlipCard> {
   final SearchBarController _searchBarController = SearchBarController();
-  // final TextEditingController _searchQueryController = TextEditingController();
+  ScrollController _scrollController = ScrollController();
+  bool _sensorActive = false;
+  StreamSubscription<AccelerometerEvent>? _subscription;
+  void _toggleSensor() {
+    setState(() {
+      _sensorActive = !_sensorActive;
+    });
+    if (_sensorActive) {
+      _subscription = accelerometerEvents.listen((AccelerometerEvent event) {
+        if (event.z > 9.0) {
+          _scrollController.animateTo(
+            _scrollController.offset + 100,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        } else if (event.z < 6.0) {
+          _scrollController.animateTo(
+            _scrollController.offset - 100,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    } else {
+      _subscription?.cancel();
+    }
+  }
 
   List<Map<String, dynamic>> recipes = [];
   bool isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    _fetchRecipes();    
+    _fetchRecipes();
+    if (_sensorActive) {
+      _subscription = accelerometerEvents.listen((AccelerometerEvent event) {
+        if (event.z > 8.0) {
+          _scrollController.animateTo(
+            _scrollController.offset + 100,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        } else if (event.z < 6.0) {
+          _scrollController.animateTo(
+            _scrollController.offset - 100,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    }
   }
-    
 
   void _fetchRecipes({String? query}) async {
     print("=>>>>>>>>>>>>>>>>>>>>>$query");
-  setState(() {
-    isLoading = true;
-  });
-
-  try {
-    final response = await http.get(
-      query == null
-          ? Uri.parse('https://recipenutrition.pythonanywhere.com/recipes/')
-          : Uri.parse('https://recipenutrition.pythonanywhere.com/recipes/name/$query'),
-      headers: <String, String>{
-        // 'origin': '*',
-        // 'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    final responseData = json.decode(response.body) as List<dynamic>;
-    print("@@@@@@@@@");
-    print(responseData);
-    final List<Map<String, dynamic>> newRecipes =
-        responseData.map((recipeData) {
-      return {
-        'title': recipeData['title'],
-        'short_description': recipeData['short_description'],
-        'image_url': recipeData['image_url'],
-        'description': recipeData['description'],
-        'ingredients': recipeData['ingredients'],
-        'steps_with_images': recipeData['steps_with_images'],
-        'nutrition': recipeData['nutrition'],
-        'cook_time': recipeData['cook_time'],
-        'rating': recipeData['rating'],
-      };
-    }).toList();
-
     setState(() {
-      recipes = newRecipes;
-      isLoading = false;
+      isLoading = true;
     });
-  } catch (error) {
-    print('Error fetching recipes: $error');
-    setState(() {
-      isLoading = false;
-    });
+    try {
+      final response = await http.get(
+        query == null
+            ? Uri.parse('https://recipenutrition.pythonanywhere.com/recipes/')
+            : Uri.parse(
+                'https://recipenutrition.pythonanywhere.com/recipes/name/$query'),
+        headers: <String, String>{
+          // 'origin': '*',
+          // 'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      final responseData = json.decode(response.body) as List<dynamic>;
+      print("@@@@@@@@@");
+      print(responseData);
+      final List<Map<String, dynamic>> newRecipes =
+          responseData.map((recipeData) {
+        return {
+          'title': recipeData['title'],
+          'short_description': recipeData['short_description'],
+          'image_url': recipeData['image_url'],
+          'description': recipeData['description'],
+          'ingredients': recipeData['ingredients'],
+          'steps_with_images': recipeData['steps_with_images'],
+          'nutrition': recipeData['nutrition'],
+          'cook_time': recipeData['cook_time'],
+          'rating': recipeData['rating'],
+        };
+      }).toList();
+      setState(() {
+        recipes = newRecipes;
+        isLoading = false;
+      });
+    } catch (error) {
+      print('Error fetching recipes: $error');
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
-}
 
-
-final _searchController = TextEditingController();
+  final _searchController = TextEditingController();
   String _searchText = '';
-
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController.dispose();
+    _subscription
+        ?.cancel(); // cancel the subscription when disposing the widget
     super.dispose();
   }
 
   void _handleSearch() {
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@$_searchText");
-  _fetchRecipes(query: _searchText);
-}
+    _fetchRecipes(query: _searchText);
+  }
 
   @override
   Widget build(BuildContext context) {
     final sHeight = MediaQuery.of(context).size.height;
     final sWidth = MediaQuery.of(context).size.width;
-
     return MaterialApp(
       theme: isLight
           ? ThemeData(
@@ -114,24 +154,30 @@ final _searchController = TextEditingController();
             ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-         resizeToAvoidBottomInset: false,
-        drawer: MyDrawer(),
-             appBar: AppBar(
-        title: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: 'Search',
-            border: InputBorder.none,
-          ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _toggleSensor,
+          child: Icon(_sensorActive ? Icons.pause : Icons.play_arrow),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {_searchText =  _searchController.text; _handleSearch();},
+        resizeToAvoidBottomInset: false,
+        drawer: MyDrawer(),
+        appBar: AppBar(
+          title: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              hintText: 'Search',
+              border: InputBorder.none,
+            ),
           ),
-        ],
-      ),
-        // body has a center with ListView.builder child.
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                _searchText = _searchController.text;
+                _handleSearch();
+              },
+            ),
+          ],
+        ),
         body: isLoading
             ? Shimmer.fromColors(
                 baseColor: Colors.grey[300] ?? Colors.grey,
@@ -175,6 +221,7 @@ final _searchController = TextEditingController();
                 children: [
                   Expanded(
                     child: ListView.builder(
+                      controller: _scrollController,
                       itemCount: recipes.length,
                       itemBuilder: (BuildContext context, int index) {
                         // return a FlipCard widget for each data item
@@ -244,7 +291,7 @@ final _searchController = TextEditingController();
                                         Row(
                                           children: [
                                             Icon(
-                                              Icons.star,
+                                              Icons.thumb_up,
                                               color: Colors.blue,
                                               size: 20.0,
                                             ),
@@ -336,6 +383,22 @@ final _searchController = TextEditingController();
                                     padding:
                                         EdgeInsets.symmetric(vertical: 8.0),
                                     child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.blue, // Background color
+                                        onPrimary: Colors.white, // Text color
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ), // Rounded corners
+                                        textStyle: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                        ), // Text style
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.0,
+                                            vertical: 8.0), // Button padding
+                                      ),
                                       onPressed: () {
                                         print(recipes[index]
                                                 ['steps_with_images']
@@ -360,7 +423,7 @@ final _searchController = TextEditingController();
                                         );
                                       },
                                       child: Text(
-                                        'View Recipe',
+                                        'View',
                                         style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'Roboto',
@@ -377,7 +440,6 @@ final _searchController = TextEditingController();
                       },
                     ),
                   ),
-                  
                 ],
               ),
       ),

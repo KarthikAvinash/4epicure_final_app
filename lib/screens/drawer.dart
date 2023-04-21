@@ -1,8 +1,7 @@
-import 'package:chatgpt_course/screens/contact_screen.dart';
 import 'package:chatgpt_course/screens/get_nutrients_screen.dart';
 import 'package:flutter/material.dart';
 import '../utilities/colors.dart';
-
+import '../auth_screens/signUp.dart';
 import '../utilities/globals.dart' as globals;
 
 class MyDrawer extends StatefulWidget {
@@ -96,7 +95,12 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: Icon(Icons.logout),
             title: Text('Logout'),
             onTap: () {
-              // TODO: implement logout
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignupScreen(),
+              ),
+            );
             },
           ),
           ListTile(

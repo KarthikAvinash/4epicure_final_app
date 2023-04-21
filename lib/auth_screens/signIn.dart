@@ -1,4 +1,4 @@
-import 'package:chatgpt_course/auth_screens/signUp.dart';
+import 'signUp.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_services.dart';
 import '../utilities/colors.dart';

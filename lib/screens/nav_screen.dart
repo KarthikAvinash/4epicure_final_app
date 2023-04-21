@@ -5,6 +5,7 @@ import '../models/video_model.dart';
 import '../providers/playlist_provider.dart';
 import '../screens/home_screen.dart';
 import '../screens/video_screen.dart';
+import '../globals.dart';
 
 final currentPlaylistProvider =
     StateNotifierProvider<PlaylistProvider, AsyncValue<Playlist>>(
@@ -19,6 +20,7 @@ class NavScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    yt_vid_ctrl = true;
     return Scaffold(
       body: Stack(
         children: const [

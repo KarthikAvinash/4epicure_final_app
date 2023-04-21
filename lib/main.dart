@@ -184,7 +184,8 @@ import 'package:provider/provider.dart' as provider;
 import './screens/tabs_screen.dart';
 import './providers/chats_provider.dart';
 import './providers/models_provider.dart';
-
+import 'main_splash.dart';
+import 'package:chatgpt_course/screens/get_nutrients_screen.dart';
 void main() {
   runApp(
     riverpod.ProviderScope(
@@ -216,7 +217,9 @@ class MyApp extends StatelessWidget {
           selectedItemColor: Colors.white,
         ),
       ),
-      home:const SignupScreen(),
+      // home:const SignupScreen(),
+      home: SplashScreen(),
+      // home:getNutrientsScreen(),
     );
   }
 }

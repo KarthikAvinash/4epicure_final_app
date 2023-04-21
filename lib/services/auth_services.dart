@@ -44,7 +44,7 @@ class authServices {
           onSuccess: () {
             showSnackBar(
                 context, 'Account created login with the same credentials');
-Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShakeToNavigate()));
           });
           return;
     } catch (e) {
@@ -80,7 +80,7 @@ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsS
 //           // Provider.of<UserProvider>(context, listen: false).setUser(res.body);
 //           // globals.userName = res.body[name];
 //           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-// Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+// Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShakeToNavigate()));
 //         },
 //       );
 //     } catch (e) {
@@ -103,7 +103,7 @@ void signInUser({
         {
           wglobals.setUserId(1);
         globals.userName = "Devarshi" ; 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShakeToNavigate()));
         }
         else{
           showSnackBar(context, "Please login with correct credentials");
@@ -115,7 +115,7 @@ void signInUser({
         {
         wglobals.setUserId(2); 
         globals.userName = "Devesh" ; 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShakeToNavigate()));
         print("inside");
         }
         else{
@@ -128,7 +128,7 @@ void signInUser({
         {
         wglobals.setUserId(3); 
         globals.userName = "Karthik" ; 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShakeToNavigate()));
         }
         else{
           showSnackBar(context, "Please login with correct credentials");
@@ -140,7 +140,7 @@ void signInUser({
         {
         wglobals.setUserId(4);
         globals.userName = "Sameed" ; 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShakeToNavigate()));
         }
         else{
           showSnackBar(context, "Please login with correct credentials");

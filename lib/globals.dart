@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
  int user_id = 1;
 
-bool isLight = true;
+bool isLight = false;
 Color card_color = Color.fromRGBO(220, 208, 208, 1);
 
 Border border_color = Border.all(
@@ -15,3 +15,5 @@ Border border_color = Border.all(
  void setUserId(int userId) {
     user_id = userId;
 }
+
+var yt_vid_ctrl = true;
