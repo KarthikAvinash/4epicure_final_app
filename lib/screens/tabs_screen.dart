@@ -178,7 +178,12 @@ class _ShakeToNavigateState extends State<ShakeToNavigate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MainDrawer(),
+      drawer: MyDrawer(),
+      appBar: _selectedPageIndex == 0
+          ? AppBar(
+              title: Text('Recipes'),
+            )
+          : null,
       body: [
         MyFlipCard(),
         ChatScreen(),
@@ -193,48 +198,48 @@ class _ShakeToNavigateState extends State<ShakeToNavigate> {
           });
         },
         backgroundColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Colors.black,
-          selectedItemColor: Theme.of(context).accentColor,
-          currentIndex: _selectedPageIndex,
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Theme.of(context).accentColor,
+        currentIndex: _selectedPageIndex,
         type: BottomNavigationBarType.shifting,
         // fixedColor: Colors.amber, // added this line
         items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_dining),
-              activeIcon: Icon(
-                Icons.local_dining,
-              ),
-              label: 'Recipes',
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_dining),
+            activeIcon: Icon(
+              Icons.local_dining,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              activeIcon: Icon(
-                Icons.star,
-              ),
-              label: 'Recipe Sage',
+            label: 'Recipes',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            activeIcon: Icon(
+              Icons.star,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle_outline),
-              activeIcon: Icon(
-                Icons.add_circle,
-              ),
-              label: 'add post',
+            label: 'Recipe Sage',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            activeIcon: Icon(
+              Icons.add_circle,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              activeIcon: Icon(
-                Icons.shopping_cart,
-              ),
-              label: 'My Groceries',
+            label: 'add post',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            activeIcon: Icon(
+              Icons.shopping_cart,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_filled),
-              activeIcon: Icon(
-                Icons.play_circle_filled,
-              ),
-              label: 'youtube',
+            label: 'My Groceries',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_circle_filled),
+            activeIcon: Icon(
+              Icons.play_circle_filled,
             ),
-          ],
+            label: 'youtube',
+          ),
+        ],
       ),
     );
   }

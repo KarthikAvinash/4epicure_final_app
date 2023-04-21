@@ -174,6 +174,7 @@
 // }
 import 'package:chatgpt_course/auth_screens/signIn.dart';
 import 'package:chatgpt_course/auth_screens/signUp.dart';
+import 'package:chatgpt_course/screens/about_us_screen.dart';
 import 'package:chatgpt_course/screens/grocery_screen.dart';
 import 'package:chatgpt_course/screens/recipe_with_pie_chart.dart';
 import 'package:flutter/material.dart';
@@ -186,6 +187,7 @@ import './providers/chats_provider.dart';
 import './providers/models_provider.dart';
 import 'main_splash.dart';
 import 'package:chatgpt_course/screens/get_nutrients_screen.dart';
+
 void main() {
   runApp(
     riverpod.ProviderScope(
@@ -218,8 +220,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home:const SignupScreen(),
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      home: ShakeToNavigate(),
       // home:getNutrientsScreen(),
+      // home: AboutUsScreen(),
     );
   }
 }

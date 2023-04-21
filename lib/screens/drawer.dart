@@ -1,3 +1,4 @@
+import 'package:chatgpt_course/screens/about_us_screen.dart';
 import 'package:chatgpt_course/screens/get_nutrients_screen.dart';
 import 'package:flutter/material.dart';
 import '../utilities/colors.dart';
@@ -76,12 +77,16 @@ class _MyDrawerState extends State<MyDrawer> {
             );
             },
           ),
+          
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              // TODO: implement settings
-            },
+            title: Text('About Us'),
+            onTap: () {Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AboutUsScreen(),
+              ),
+            );}
           ),
           ListTile(
             leading: Icon(Icons.help),

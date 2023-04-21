@@ -159,7 +159,6 @@ class _MyFlipCardState extends State<MyFlipCard> {
           child: Icon(_sensorActive ? Icons.pause : Icons.play_arrow),
         ),
         resizeToAvoidBottomInset: false,
-        drawer: MyDrawer(),
         appBar: AppBar(
           title: TextField(
             controller: _searchController,

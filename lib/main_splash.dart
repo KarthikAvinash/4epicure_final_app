@@ -59,7 +59,8 @@
 import 'screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:chatgpt_course/auth_screens/signIn.dart';
+import 'package:chatgpt_course/auth_screens/signUp.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -77,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // navigate to ShakeToNavigate() after the splash screen has finished
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => ShakeToNavigate(),
+          builder: (_) => SignupScreen(),
         ),
       );
     });
