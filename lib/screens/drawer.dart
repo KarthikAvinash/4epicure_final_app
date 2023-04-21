@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import '../utilities/colors.dart';
 import '../auth_screens/signUp.dart';
 import '../utilities/globals.dart' as globals;
+import '../globals.dart' as globals2;
+
+
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -39,9 +42,24 @@ class _MyDrawerState extends State<MyDrawer> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  radius: 40,
-                  // backgroundImage: AssetImage('assets/images/profile.png'),
-                ),
+  radius: 40,
+  backgroundImage: (() {
+    switch (globals2.user_id) {
+      case 1:
+        return NetworkImage('https://drive.google.com/uc?id=1exfs9MwyGcmd1kmYQmQg5X-t7s9xYJwm');
+      case 2:
+        return NetworkImage('https://drive.google.com/uc?id=1MhnUr3Je4b5XnTAN7IMSYcY8hxn5TbJ3');
+      case 3:
+        return NetworkImage('https://drive.google.com/uc?id=18CofUOyJHPRhVeEaeXu_TnHqRuc5uJ6M');
+      case 4:
+        return NetworkImage('https://drive.google.com/uc?id=1oX7fjN5UYmOAwcuHCUgHa47LwIgE8-7N');
+      default:
+        return NetworkImage('https://drive.google.com/uc?id=1exfs9MwyGcmd1kmYQmQg5X-t7s9xYJwm'); // set a default image if user_id does not match any case
+    }
+  })(),
+),
+
+
                 SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

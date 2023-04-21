@@ -192,7 +192,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         backgroundColor: MaterialStateProperty.all(Colors
                             .white)), // remember to give the color in this format otherwise null safety error will be prompted
                     child: const Image(
-                      image: AssetImage("images/google_logo.jpg"),
+                      image: AssetImage("assets/images/google.png"),
                       height: 35,
                       width: 35,
                     ),
