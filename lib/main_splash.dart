@@ -91,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/splash_screen_background.jpg"),
+          image: AssetImage("assets/images/splash_screen_background.png"),
           fit: BoxFit.cover,
         ),
       ),

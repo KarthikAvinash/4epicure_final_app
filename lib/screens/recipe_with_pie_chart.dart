@@ -81,7 +81,7 @@ class _MyFlipCardState extends State<MyFlipCard> {
     try {
       final response = await http.get(
         query == null
-            ? Uri.parse('https://recipenutrition.pythonanywhere.com/recipes/')
+            ? Uri.parse('https://recipenutrition.pythonanywhere.com/recipes')
             : Uri.parse(
                 'https://recipenutrition.pythonanywhere.com/recipes/name/$query'),
         headers: <String, String>{
